@@ -31,7 +31,7 @@
     $tipo_lectura->execute();
 
     #Tabla servicios
-    $servicios = $conexion->prepare('CREATE TABLE `registro_servicios`.`servicios` (`ser_id` INT NOT NULL AUTO_INCREMENT, `ser_tipo_ser_id` INT NOT NULL, `ser_status` BOOLEAN NOT NULL, `ser_medidor` VARCHAR(30) NOT NULL, `ser_ubicacion` VARCHAR(30) NOT NULL, `ser_subestacion` VARCHAR(20), PRIMARY KEY (`ser_id`), FOREIGN KEY (`ser_tipo_ser_id`) REFERENCES tipo_servicio(`tipo_ser_id`) ON UPDATE CASCADE ON DELETE RESTRICT) ENGINE = InnoDB;');//Probar con INDEX
+    $servicios = $conexion->prepare('CREATE TABLE `registro_servicios`.`servicios` (`ser_id` INT NOT NULL AUTO_INCREMENT, `ser_tipo_ser_id` INT NOT NULL, `ser_status` BOOLEAN NOT NULL, `ser_num_cuenta` VARCHAR(30), `ser_medidor` VARCHAR(30), `ser_ubicacion` VARCHAR(30) NOT NULL, `ser_subestacion` VARCHAR(20), PRIMARY KEY (`ser_id`), FOREIGN KEY (`ser_tipo_ser_id`) REFERENCES tipo_servicio(`tipo_ser_id`) ON UPDATE CASCADE ON DELETE RESTRICT) ENGINE = InnoDB;');//Probar con INDEX
     $servicios->execute();
 
     #Tabla registros
