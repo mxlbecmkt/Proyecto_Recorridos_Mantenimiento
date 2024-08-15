@@ -6,7 +6,7 @@
   <title>Administración de Datos</title>
   <script>
     function elegirAccion(accion){
-      console.log(accion);
+      //console.log(accion);
       ocultarDivs();
 
       switch (accion){
@@ -22,6 +22,10 @@
           document.getElementById('agregarLecSer').style.display = "block";
           inicializarAcciones(3);
           break;
+        case 4:
+          document.getElementById('consultaMensualCrud').style.display = "block";
+          inicializarAcciones(4);
+          break;
       }
     }
 
@@ -30,6 +34,7 @@
       document.getElementById('readCrud').style.display = "none";
       document.getElementById('updateCrud').style.display = "none";
       document.getElementById('agregarLecSer').style.display = "none";
+      document.getElementById('consultaMensualCrud').style.display = "none";
     }
 
     function inicializarAcciones(accion) {
@@ -49,12 +54,24 @@
 
           filtrarRegistros();
           break;
+        case 3:
+          break;
+        case 4:
+          const yearActual2 = new Date();
+
+          document.getElementById('FechaMes2').value = yearActual2.getMonth() + 1;
+          document.getElementById('FechaYear2').value = yearActual2.getFullYear();
+          //document.getElementById('FechaAnt').value = "2";
+          document.getElementById('tipoServicio2').value = "1";
+
+          actualizarServicios2();
+          break;
       }
     }
 
     function selInsertar(){
       const valorIns = document.getElementById('selInsertar').value;
-      console.log(valorIns);
+      //console.log(valorIns);
       ocultarForms();
       
       switch (valorIns){
@@ -83,7 +100,7 @@
 
     function actualizarServicios() {
       const tipoServicioId = document.getElementById('selServicio2').value;
-      console.log(tipoServicioId);
+      //console.log(tipoServicioId);
       const xhr = new XMLHttpRequest();
       xhr.open('POST', 'seleccion_servicio.php', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -159,6 +176,45 @@
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.send('datos_accion=' + encodeURIComponent(tipoSer + "-" + tipoLec));
     }
+
+    /* function generarReporte(){
+      const mes = document.getElementById('FechaMes2').value;
+      const year = document.getElementById('FechaYear2').value;
+      const tipoServicioID = document.getElementById('tipoServicio2').value;
+      const ServicioID = document.getElementById('Servicio2').value;
+      console.log(mes + "-" + year + "-" + tipoServicioID + "-" + ServicioID);
+
+      if(tipoServicioID == 5){
+        console.log('Temperatura');
+      } else {
+        header('generar_reporte_pdf.php?variable=' . $year);
+        /* const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'generar_reporte_pdf.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            //document.getElementById('tablaConsultas').innerHTML = xhr.responseText;
+          }
+        };
+        xhr.send('datos_reporte=' + encodeURIComponent(mes + "-" + year + "-" + tipoServicioID + "-" + ServicioID));
+      }
+    } */
+
+    function actualizarServicios2() {
+      const tipoServicioId = document.getElementById('tipoServicio2').value;
+      //console.log(tipoServicioId);
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', 'seleccion_servicio.php', true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.onload = function() {
+          if (xhr.status === 200) {
+              document.getElementById('Servicio2').innerHTML = xhr.responseText;
+          }
+      };
+      xhr.send('tipo_ser_id=' + encodeURIComponent(tipoServicioId));
+
+      ingresarCamposLecturas();
+    }
   </script>
 </head>
 <body>
@@ -171,6 +227,7 @@
                     <button id="btnInsertar" onclick="elegirAccion(1)">Insertar</button>
                     <button id="btnConsultar" onclick="elegirAccion(2)">Consultar</button>
                     <button id="btnAgregarLecASer" onclick="elegirAccion(3)">Agregar Lectura a Cuestionario</button>
+                    <button id="btnConsulRepoMen" onclick="elegirAccion(4)">Consultar Reporte Mensual</button>
                   </div></br></br>
                   <div id="createCrud" hidden>
                     <label for="selInsertar">Elegir elemento a ingresar:</label>
@@ -288,6 +345,40 @@
                       <?php endforeach; ?>
                       </select></br></br>
                     <button id="btnAgregaTipoLec" onclick="AgregarTipoLec()">Agregar</button>
+                  </div>
+                  <div id="consultaMensualCrud" hidden>
+                    <form action="generar_reporte_pdf.php" method="post" id="formReporte">
+                      <label for="FechaMes2">&nbspFiltrar mes:</label>
+                      <select id="FechaMes2" name="FechaMes">
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                      </select>
+                      <label for="FechaYear2">&nbspFiltrar año:</label>
+                      <select id="FechaYear2" name="FechaYear">
+                        <?php foreach ($years as $year): ?>
+                            <option value="<?php echo $year['reg_year']; ?>"><?php echo $year['reg_year']; ?></option>
+                        <?php endforeach; ?>
+                      </select>
+                      <label for="tipoServicio2">&nbspTipo de Servicio:</label>
+                      <select id="tipoServicio2" name="tipoServicio" onchange="actualizarServicios2()">
+                        <?php foreach ($tipos_servicio as $tipo_servicio): ?>
+                            <option value="<?php echo $tipo_servicio['tipo_ser_id']; ?>"><?php echo $tipo_servicio['tipo_ser_nombre']; ?></option>
+                        <?php endforeach; ?>
+                      </select>
+                      <label for="Servicio2">&nbspServicio:</label>
+                      <select id="Servicio2" name="Servicio"></select></br></br>
+                      <input type="submit" value="Generar Reporte Mensual">
+                    </form>
                   </div>
                 </center>
               </div>

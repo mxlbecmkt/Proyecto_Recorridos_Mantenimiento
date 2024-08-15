@@ -7,14 +7,14 @@
         echo 'Fatal Error!';
 	}
 
-    $data = json_decode(file_get_contents('php://input'), true);
+    /*$data = json_decode(file_get_contents('php://input'), true);
     $image = $data['image'];
     $image = str_replace('data:image/png;base64,', '', $image);
     $image = str_replace(' ', '+', $image);
     $imageData = base64_decode($image);
 
     $tempImage = 'temp_chart.png';
-    file_put_contents($tempImage, $imageData);
+    file_put_contents($tempImage, $imageData);*/
 
     function calculoDesvZ($lecturas, $cantidad_lecturas, $promedio){
         $resultado = 0;
@@ -76,7 +76,7 @@
     $stmt->execute();
     $tipo_lecturas = $stmt->fetchAll(PDO::FETCH_ASSOC); */
 
-    $servicio_id = 5;
+    $servicio_id = 6;
         
     //$pdf->MultiCell(10, 4, $tipo_lecturas[0]['tipo_lec_nombre'], 1, 'C', 0, 0, 10, 63, true, 0, false, true, 4, 'M');
 

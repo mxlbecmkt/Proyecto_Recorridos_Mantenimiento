@@ -7,7 +7,7 @@
 	}
 
     //Obtener de pantalla de administrador
-    $servicio_id = 5;
+    $servicio_id = 6;
 
     $sql = "SELECT * FROM tipo_servicio JOIN servicios
           ON tipo_servicio.tipo_ser_id=servicios.ser_tipo_ser_id
@@ -118,8 +118,8 @@
             })
             .then(response => response.blob())
             .then(blob => {
-                const pdfUrl = URL.createObjectURL(blob);
-                window.open(pdfUrl, '_blank');
+                /* const pdfUrl = URL.createObjectURL(blob);
+                window.open(pdfUrl, '_blank'); */
             })
             .catch(error => console.error('Error:', error));
         });
