@@ -48,11 +48,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div>
+    <div hidden>
         <canvas id="GraficaT" with="400" height="320"></canvas>
         <canvas id="GraficaH" with="400" height="320"></canvas>
-        <!-- <button id="generarPDF">Generar en PDF</button>
-        <iframe id="pdfIframe" style="width:100%; height:600px; border:none; display:none;"></iframe> -->
     </div>
     <script>
         const xsT = <?php echo json_encode($xsT); ?>;
@@ -103,11 +101,28 @@
             options: {
                 responsive: false,
                 maintainAspectRatio: false,
-            scales: {
-                y: {
-                beginAtZero: true
+                scales: {
+                    y: {
+                    beginAtZero: true
+                    }
+                },
+                animation: {
+                    onComplete: function () {
+                        var imgData = graficaT.toBase64Image();
+                        console.log(imgData);
+
+                        fetch('grafica_imagen.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ image: imgData })
+                        })
+                        .then(response => response.blob())
+                        .then(blob => {})
+                        .catch(error => console.error('Error:', error));
+                    }
                 }
-            }
             }
         });
 
@@ -145,43 +160,32 @@
             options: {
                 responsive: false,
                 maintainAspectRatio: false,
-            scales: {
-                y: {
-                beginAtZero: true
+                scales: {
+                    y: {
+                    beginAtZero: true
+                    }
+                },
+                animation: {
+                    onComplete: function () {
+                        var imgData = graficaH.toBase64Image();
+                        console.log(imgData);
+
+                        fetch('grafica_imagen.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ image: imgData })
+                        })
+                        .then(response => response.blob())
+                        .then(blob => {})
+                        .catch(error => console.error('Error:', error));
+
+                        window.location='generar_reporte_pdf_grafica.php';
+                    }
                 }
             }
-            }
         });
-
-        /* var imgData = graficaT.toBase64Image();
-        fetch('grafica_imagen.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ image: imgData })
-        })
-        .then(response => response.json())
-        .then(data => {
-            //const pdfUrl = URL.createObjectURL(blob);
-            //window.open(pdfUrl, '_blank');
-        })
-        .catch(error => console.error('Error:', error)); */
-
-        /*var imgData = graficaH.toBase64Image();
-        fetch('grafica_imagen.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ image: imgData })
-        })
-        .then(response => response.blob())
-        .then(blob => {
-            //const pdfUrl = URL.createObjectURL(blob);
-            //window.open(pdfUrl, '_blank');
-        })
-        .catch(error => console.error('Error:', error)); */
     </script>
 </body>
 </html>

@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selección Servicio</title>
+    <title>Selección Servicio</title> -->
     <script>
         function actualizarServicios() {
             const tipoServicioId = document.getElementById('tipo_servicio').value;
@@ -24,8 +24,8 @@
             actualizarServicios();
         }
     </script>
-</head>
-<body onload="inicializar()">
+<!-- </head>
+<body onload="inicializar()"> -->
   <div class="app-content content container-fluid">
       <div class="content-wrapper">
           <div class="content-detached">
@@ -51,5 +51,5 @@
           </div>
       </div>
   </div>
-</body>
-</html>
+<!-- </body>
+</html> -->

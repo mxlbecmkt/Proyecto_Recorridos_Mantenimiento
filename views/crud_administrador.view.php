@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Administración de Datos</title>
+  <title>Administración de Datos</title> -->
   <script>
     function elegirAccion(accion){
       //console.log(accion);
@@ -216,8 +216,8 @@
       ingresarCamposLecturas();
     }
   </script>
-</head>
-<body>
+<!-- </head>
+<body> -->
 <div class="app-content content container-fluid">
       <div class="content-wrapper">
           <div class="content-detached">
@@ -229,7 +229,7 @@
                     <button id="btnAgregarLecASer" onclick="elegirAccion(3)">Agregar Lectura a Cuestionario</button>
                     <button id="btnConsulRepoMen" onclick="elegirAccion(4)">Consultar Reporte Mensual</button>
                   </div></br></br>
-                  <div id="createCrud" hidden>
+                  <div id="createCrud" style="display: none;">
                     <label for="selInsertar">Elegir elemento a ingresar:</label>
                     <select id="selInsertar" name="selInsertar" onchange="selInsertar()">
                       <option value="1" selected>Tipo Lectura</option>
@@ -237,21 +237,21 @@
                       <option value="3">Servicio</option>
                       <option value="4">Registro</option>
                     </select></br></br>
-                    <form action="insertar_datos_crud.php" method="post" id="formTipoLec" hidden>
+                    <form action="insertar_datos_crud.php" method="post" id="formTipoLec" style="display: none;">
                       <label>Nombre del Tipo de Lectura:</label>
                       <input type="text" name="tipo_lectura" required></br></br>
                       <input type="hidden" value="1" name="opcionInsertar">
                       <input type="submit" value="Confirmar"></br></br>
                       <input type="reset" value="Reestablecer">
                     </form>
-                    <form action="insertar_datos_crud.php" method="post" id="formTipoSer" hidden>
+                    <form action="insertar_datos_crud.php" method="post" id="formTipoSer" style="display: none;">
                       <label>Nombre del Tipo de Servicio:</label>
                       <input type="text" name="tipo_servicio" required></br></br>
                       <input type="hidden" value="2" name="opcionInsertar">
                       <input type="submit" value="Confirmar"></br></br>
                       <input type="reset" value="Reestablecer">
                     </form>
-                    <form action="insertar_datos_crud.php" method="post" id="formServicio" hidden>
+                    <form action="insertar_datos_crud.php" method="post" id="formServicio" style="display: none;">
                       <label>Tipo de Servicio:</label>
                       <select id="selServicio" name="tipoServicio">
                         <?php foreach ($tipos_servicio as $tipo_servicio): ?>
@@ -263,8 +263,10 @@
                         <option value="1">Activo</option>
                         <option value="0">Inactivo</option>
                       </select></br></br>
+                      <label>Número de Cuenta:</label>
+                      <input type="text" name="num_cuenta"></br></br>
                       <label>Medidor:</label>
-                      <input type="text" name="medidor" required></br></br>
+                      <input type="text" name="medidor"></br></br>
                       <label>Ubicación:</label>
                       <input type="text" name="ubicacion" required></br></br>
                       <label>Subestación:</label>
@@ -273,7 +275,7 @@
                       <input type="submit" value="Confirmar"></br></br>
                       <input type="reset" value="Reestablecer">
                     </form>
-                    <form action="insertar_registro.php" method="post" id="formRegistro" enctype="multipart/form-data" hidden >
+                    <form action="insertar_registro.php" method="post" id="formRegistro" enctype="multipart/form-data" style="display: none;">
                       <label>Tipo de Servicio:</label>
                       <select id="selServicio2" name="tipoServicio" onchange="actualizarServicios()">
                           <?php foreach ($tipos_servicio as $tipo_servicio): ?>
@@ -291,7 +293,7 @@
                       <input type="reset" value="Reestablecer" onclick="reestablecerFormRegistro()">
                     </form>
                   </div>
-                  <div id="readCrud" hidden>
+                  <div id="readCrud" style="display: none;">
                     <label for="FechaAnt">Filtrar antiguedad:</label>
                     <select id="FechaAnt" name="FechaAnt" onchange="filtrarRegistros()">
                       <option value="1">Más Reciente</option>
@@ -326,13 +328,13 @@
                     </select>
                     <label for="numEmpleado">&nbspNúmero de Empleado:</label>
                     <input type="text" id="numEmpleado" name="numEmpleado"></br></br>
-                    <button id="btnBuscar" onclick="filtrarRegistros()">Buscar</button>
+                    <button id="btnBuscar" onclick="filtrarRegistros()">Buscar</button></br></br>
                     <div id="tablaConsultas"></div>
                   </div>
-                  <div id="updateCrud" hidden>
+                  <div id="updateCrud" style="display: none;">
                     <form action="actualizar_lecturas_registro.php" method="post"  id="formUpdate" ></form>
                   </div>
-                  <div id="agregarLecSer" hidden>
+                  <div id="agregarLecSer" style="display: none;">
                     <label>Tipo de Servicio:</label>
                     <select id="selServicio4">
                       <?php foreach ($tipos_servicio as $tipo_servicio): ?>
@@ -346,7 +348,7 @@
                       </select></br></br>
                     <button id="btnAgregaTipoLec" onclick="AgregarTipoLec()">Agregar</button>
                   </div>
-                  <div id="consultaMensualCrud" hidden>
+                  <div id="consultaMensualCrud" style="display: none;">
                     <form action="generar_reporte_pdf.php" method="post" id="formReporte">
                       <label for="FechaMes2">&nbspFiltrar mes:</label>
                       <select id="FechaMes2" name="FechaMes">
@@ -385,5 +387,5 @@
           </div>
       </div>
   </div>
-</body>
-</html>
+<!-- </body>
+</html> -->

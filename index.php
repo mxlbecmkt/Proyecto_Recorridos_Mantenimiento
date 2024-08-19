@@ -1,5 +1,5 @@
 <?php
-/*     include("../connect.php"); 
+    /* include("../connect.php"); 
     include("../session_check.php");
     include("../cards_fnc_admin.php");
     include("../getworkingdays.php");
@@ -14,20 +14,16 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         
     }
-
-    #Prueba insertar datos
-    /*$instr = "INSERT INTO `registro_servicios`.`tipo_servicio` (`tipo_ser_nombre`) VALUES (:servicio)";
-    $resultado = $conexion->prepare($instr);
-    $resultado->bindValue(':servicio',"Cisterna");
-    $resultado->execute();*/
+            
+    session_start();
 
     //include("views/header.php");
     //include("views/index.view.php");
     //include("views/footer.php");
 
-    $num_empleado = 2032;
+    $num_emp_usuario = $_SESSION['noempleado_admin'];
 
-    $sql = "SELECT * FROM administradores WHERE num_empleado=$num_empleado";
+    $sql = "SELECT * FROM administradores WHERE num_empleado=$num_emp_usuario";
     $stmt = $conexion->prepare($sql);
     $stmt->execute();
 
